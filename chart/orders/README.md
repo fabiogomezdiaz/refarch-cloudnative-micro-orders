@@ -61,7 +61,7 @@ helm upgrade --install orders-mariadb \
   stable/mariadb
 
 # Clone orders repository:
-git clone -b spring --single-branch https://github.com/fabiogomezdiaz/refarch-cloudnative-micro-orders.git
+git clone https://github.com/fabiogomezdiaz/refarch-cloudnative-micro-orders.git
 
 # Go to Chart Directory
 cd refarch-cloudnative-micro-orders/chart/orders

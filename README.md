@@ -69,7 +69,7 @@ The Orders Microservice REST API is OAuth 2.0 protected and identifies and valid
     + [`helm`](https://docs.helm.sh/using_helm/#installing-helm)
 * Clone orders repository:
 ```bash
-git clone -b spring --single-branch https://github.com/fabiogomezdiaz/refarch-cloudnative-micro-orders.git
+git clone https://github.com/fabiogomezdiaz/refarch-cloudnative-micro-orders.git
 cd refarch-cloudnative-micro-orders
 ```
 
