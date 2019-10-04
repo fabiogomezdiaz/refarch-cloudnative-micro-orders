@@ -3,7 +3,7 @@
 ## Introduction
 This chart will deploy a Spring Boot Application with a MariaDB database onto a Kubernetes Cluster.
 
-![Application Architecture](https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-cloudnative-micro-orders/spring/static/orders.png?raw=true)
+![Application Architecture](https://raw.githubusercontent.com/fabiogomezdiaz/refarch-cloudnative-micro-orders/master/static/orders.png?raw=true)
 
 Here is an overview of the project's features:
 - Leverage [`Spring Boot`](https://projects.spring.io/spring-boot/) framework to build a Microservices application.
@@ -13,11 +13,11 @@ Here is an overview of the project's features:
 - Uses [`Docker`](https://docs.docker.com/) to package application binary and its dependencies.
 - Uses [`Helm`](https://helm.sh/) to package application and MariaDB deployment configuration and deploy to a [`Kubernetes`](https://kubernetes.io/) cluster.
 - When retrieving orders using the OAuth 2.0 protected APIs, return only orders belonging to the user identity encoded in the `user_name` claim in the JWT payload.
-  - See the [Authentication microservice](https://github.com/ibm-cloud-architecture/refarch-cloudnative-auth/tree/spring) for more details on how identity is propagated.
+  - See the [Authentication microservice](https://github.com/fabiogomezdiaz/refarch-cloudnative-micro-auth/tree/master) for more details on how identity is propagated.
 
 ## Chart Source
 The source for the `Orders` chart can be found at:
-* https://github.com/ibm-cloud-architecture/refarch-cloudnative-micro-orders/tree/spring/chart/orders
+* https://github.com/fabiogomezdiaz/refarch-cloudnative-micro-orders/tree/master/chart/orders
 
 The source for the `MariaDB` chart can be found at:
 * https://github.com/helm/charts/tree/master/stable/mariadb
@@ -61,7 +61,7 @@ helm upgrade --install orders-mariadb \
   stable/mariadb
 
 # Clone orders repository:
-git clone -b spring --single-branch https://github.com/ibm-cloud-architecture/refarch-cloudnative-micro-orders.git
+git clone -b spring --single-branch https://github.com/fabiogomezdiaz/refarch-cloudnative-micro-orders.git
 
 # Go to Chart Directory
 cd refarch-cloudnative-micro-orders/chart/orders

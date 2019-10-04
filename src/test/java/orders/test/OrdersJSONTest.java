@@ -14,8 +14,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import orders.model.Order;
 
 public class OrdersJSONTest {
-	
-	
+
 	@Test
 	public void testMarshalToJson() throws Exception {
 		final Order inv = new Order();
@@ -39,7 +38,6 @@ public class OrdersJSONTest {
 		final String json = mapper.writeValueAsString(inv);
 		
 		// construct a json string with the above properties
-		
 		final StringBuilder myJsonStr = new StringBuilder();
 		
 		myJsonStr.append("{");
@@ -56,11 +54,8 @@ public class OrdersJSONTest {
 		
 		final JsonNode jsonObj = mapper.readTree(json);
 		final JsonNode myJsonObj = mapper.readTree(myJson);
-		
-		
+
 		assert(jsonObj.equals(myJsonObj));
-		
-		
 	}
 	
 	@Test
@@ -101,7 +96,5 @@ public class OrdersJSONTest {
 		assert(inv.getDate().equals(currDate));
 		assert(inv.getCustomerId().equals(customerId));
 		assert(inv.getCount() == stock);
-		
-		
 	}
 }

@@ -114,6 +114,5 @@ public class OrdersDBTest {
 			lastDate = currDate;
 			
 		}
-		
 	}
 }

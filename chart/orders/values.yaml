@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: ibmcase/bluecompute-orders
+  repository: fabiogomezdiaz/bluecompute-orders
   tag: 0.6.0
   pullPolicy: Always
 

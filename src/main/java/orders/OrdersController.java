@@ -1,10 +1,6 @@
 package orders;
 
-import java.net.URI;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
-
+import orders.model.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-
-import orders.messagehub.MessageHubProducer;
-import orders.model.Order;
+import java.net.URI;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
 /**
  * REST Controller to manage Customer database
@@ -40,9 +29,6 @@ public class OrdersController {
     
     @Autowired
     private OrdersRepository ordersRepo;
-    
-    @Autowired
-    private MessageHubProducer producer;
     
     /**
      * check
@@ -138,8 +124,6 @@ public class OrdersController {
 			
 			final URI location =  ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(payload.getId()).toUri();
 			
-			notifyShipping(payload);
-			
 			return ResponseEntity.created(location).build();
         } catch (Exception ex) {
             logger.error("Error creating order: " + ex);
@@ -147,45 +131,4 @@ public class OrdersController {
         }
         
     }
-
-    /**
-     * @return Circuit breaker tripped
-     */
-    @HystrixCommand(fallbackMethod="failGood")
-    @RequestMapping("/circuitbreaker")
-    @ResponseBody
-    public String tripCircuitBreaker() {
-        System.out.println("Circuitbreaker Service invoked");
-        return "";
-    }
-    
-   
-	/**
-	 * Sending order information to the Shipping app
-	 * @param order
-	 */
-    private void notifyShipping(Order order) {
-    	if (!producer.isEnabled()) {
-    		return;
-    	}
-    	
-        logger.info("Publishing order to shipping app: " + order);
-
-        String fieldName = "order";
-        // Push a message into the list to be sent.
-
-        try {
-        	// get JSON object string
-        	final ObjectMapper mapper = new ObjectMapper();
-        	final String orderJSON = mapper.writeValueAsString(order);
-        	
-        	producer.writeMessage(PUBLISH_TOPIC, fieldName, orderJSON);
-            logger.info("Publishing order, Done");
-            
-        } catch (Exception e) {
-            logger.error("Exception sending message to Message Hub", e);
-            e.printStackTrace();
-        }
-    }
- 
 }

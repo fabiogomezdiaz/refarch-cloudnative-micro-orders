@@ -1,7 +1,7 @@
 /*
     To learn how to use this sample pipeline, follow the guide below and enter the
     corresponding values for your environment and for this repository:
-    - https://github.com/ibm-cloud-architecture/refarch-cloudnative-devops-kubernetes
+    - https://github.com/fabiogomezdiaz/refarch-cloudnative-devops-kubernetes
 */
 
 // Pod Template
@@ -12,7 +12,7 @@ def serviceAccount = env.SERVICE_ACCOUNT ?: "jenkins"
 
 // Pod Environment Variables
 def registry = env.REGISTRY ?: "docker.io"
-def imageName = env.IMAGE_NAME ?: "ibmcase/bluecompute-orders"
+def imageName = env.IMAGE_NAME ?: "fabiogomezdiaz/bluecompute-orders"
 
 podTemplate(label: podLabel, cloud: cloud, serviceAccount: serviceAccount, envVars: [
         envVar(key: 'REGISTRY', value: registry),
@@ -22,7 +22,7 @@ podTemplate(label: podLabel, cloud: cloud, serviceAccount: serviceAccount, envVa
         emptyDirVolume(mountPath: '/home/gradle/.gradle'),
     ],
     containers: [
-        containerTemplate(name: 'jdk', image: 'ibmcase/openjdk-bash:alpine', ttyEnabled: true, command: 'cat'),
+        containerTemplate(name: 'jdk', image: 'fabiogomezdiaz/openjdk-bash:alpine', ttyEnabled: true, command: 'cat'),
         containerTemplate(name: 'makisu', image: 'jkwong/makisu-alpine:v0.1.11', ttyEnabled: true, command: 'cat'),
         containerTemplate(name: 'skopeo', image: 'jkwong/skopeo-jenkins:latest', ttyEnabled: true, command: 'cat')
     ]) {
