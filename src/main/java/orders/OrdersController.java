@@ -25,7 +25,6 @@ import java.util.Map;
 public class OrdersController {
     
     private static Logger logger =  LoggerFactory.getLogger(OrdersController.class);
-    private static final String PUBLISH_TOPIC = "orders";
     
     @Autowired
     private OrdersRepository ordersRepo;
